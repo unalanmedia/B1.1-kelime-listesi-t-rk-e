@@ -1,0 +1,1 @@
+# B1.1-kelime-listesi-t-rk-e
