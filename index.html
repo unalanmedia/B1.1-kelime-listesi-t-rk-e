@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Almanca Kelime Listesi – Ünite 1–8</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e17;
+    --surface: #1a1929;
+    --card: #211f33;
+    --accent: #e8c547;
+    --accent2: #7c6af0;
+    --accent3: #e05c6a;
+    --accent4: #4ecdc4;
+    --accent5: #ff9f43;
+    --text: #f2f0ff;
+    --muted: #8b8aaa;
+    --border: rgba(255,255,255,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(135deg, #1a1929 0%, #2d1b4e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 2rem 1.5rem;
+    position: sticky; top: 0; z-index: 100;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+  header p { color: var(--muted); font-size: 0.85rem; margin-top: 0.3rem; }
+  .controls {
+    display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; align-items: center;
+  }
+  input[type="text"] {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    width: 220px;
+    outline: none;
+    transition: border 0.2s;
+  }
+  input[type="text"]:focus { border-color: var(--accent2); }
+  input[type="text"]::placeholder { color: var(--muted); }
+  .filter-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent2);
+    border-color: var(--accent2);
+    color: white;
+  }
+  .stats { color: var(--muted); font-size: 0.8rem; margin-left: auto; }
+  main { padding: 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--text);
+  }
+  .section-badge {
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .badge-isim { background: rgba(124,106,240,0.2); color: var(--accent2); border: 1px solid rgba(124,106,240,0.3); }
+  .badge-fiil { background: rgba(232,197,71,0.15); color: var(--accent); border: 1px solid rgba(232,197,71,0.3); }
+  .badge-sifat { background: rgba(78,205,196,0.15); color: var(--accent4); border: 1px solid rgba(78,205,196,0.3); }
+  .badge-zarf { background: rgba(255,159,67,0.15); color: var(--accent5); border: 1px solid rgba(255,159,67,0.3); }
+  .badge-diger { background: rgba(224,92,106,0.15); color: var(--accent3); border: 1px solid rgba(224,92,106,0.3); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 0.6rem;
+  }
+  .word-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    transition: transform 0.15s, border-color 0.15s;
+    cursor: default;
+  }
+  .word-card:hover {
+    transform: translateY(-1px);
+    border-color: rgba(124,106,240,0.4);
+  }
+  .article-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .art-der { background: #3d6fd4; color: white; }
+  .art-die { background: #c94444; color: white; }
+  .art-das { background: #2e8b57; color: white; }
+  .art-v { background: #c68a00; color: white; }
+  .art-adj { background: #267a7a; color: white; }
+  .art-adv { background: #8b4513; color: white; }
+  .art-other { background: #555; color: white; }
+  .word-body { flex: 1; min-width: 0; }
+  .word-de {
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .word-info {
+    font-size: 0.75rem;
+    color: var(--accent2);
+    margin-top: 0.1rem;
+  }
+  .word-tr {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+    line-height: 1.3;
+  }
+  .unit-dot {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 500;
+  }
+  .hidden { display: none !important; }
+  @media (max-width: 600px) {
+    header, main { padding: 1rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇩🇪 Almanca Kelime Hazinesi – Ünite 1–8</h1>
+  <p>Tüm ünitelerden 500+ kelime · İsim · Fiil · Sıfat · Zarf</p>
+  <div class="controls">
+    <input type="text" id="search" placeholder="Kelime ara…" oninput="filter()">
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setType('all',this)">Tümü</button>
+      <button class="filter-btn" onclick="setType('isim',this)">İsimler</button>
+      <button class="filter-btn" onclick="setType('fiil',this)">Fiiller</button>
+      <button class="filter-btn" onclick="setType('sifat',this)">Sıfatlar</button>
+      <button class="filter-btn" onclick="setType('zarf',this)">Zarflar/Edatlar</button>
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setUnit(0,this)">Tüm Üniteler</button>
+      <button class="filter-btn" onclick="setUnit(1,this)">Ü1</button>
+      <button class="filter-btn" onclick="setUnit(2,this)">Ü2</button>
+      <button class="filter-btn" onclick="setUnit(3,this)">Ü3</button>
+      <button class="filter-btn" onclick="setUnit(4,this)">Ü4</button>
+      <button class="filter-btn" onclick="setUnit(5,this)">Ü5</button>
+      <button class="filter-btn" onclick="setUnit(6,this)">Ü6</button>
+      <button class="filter-btn" onclick="setUnit(7,this)">Ü7</button>
+      <button class="filter-btn" onclick="setUnit(8,this)">Ü8</button>
+    </div>
+    <span class="stats" id="stats"></span>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<script>
+const words = [
+// ======================== ÜNİTE 1 ========================
+// İSİMLER
+{de:"die Herkunft","info":"çoğul: -e","tr":"köken, menşei","type":"isim","art":"die","unit":1},
+{de:"das Hobby","info":"çoğul: -s","tr":"hobi","type":"isim","art":"das","unit":1},
+{de:"das Training","info":"çoğul: -s","tr":"antrenman, eğitim","type":"isim","art":"das","unit":1},
+{de:"die Fotografie","info":"çoğul: -n","tr":"fotoğrafçılık","type":"isim","art":"die","unit":1},
+{de:"das Klavier","info":"çoğul: -e","tr":"piyano","type":"isim","art":"das","unit":1},
+{de:"das Motorrad","info":"çoğul: -räder","tr":"motosiklet","type":"isim","art":"das","unit":1},
+{de:"die Bildung","info":"tekil (Sg.)","tr":"eğitim, kültür","type":"isim","art":"die","unit":1},
+{de:"die Beratung","info":"çoğul: -en","tr":"danışmanlık, görüşme","type":"isim","art":"die","unit":1},
+{de:"die Agentur","info":"çoğul: -en","tr":"ajans","type":"isim","art":"die","unit":1},
+{de:"das Wartezimmer","info":"çoğul: -","tr":"bekleme odası","type":"isim","art":"das","unit":1},
+{de:"das Studium","info":"çoğul: Studien","tr":"üniversite eğitimi, lisans","type":"isim","art":"das","unit":1},
+{de:"der Abschluss","info":"çoğul: -schlüsse","tr":"mezuniyet, bitirme","type":"isim","art":"der","unit":1},
+{de:"die Unterlagen","info":"sadece çoğul (Pl.)","tr":"belgeler, evraklar","type":"isim","art":"die","unit":1},
+{de:"das Zertifikat","info":"çoğul: -e","tr":"sertifika","type":"isim","art":"das","unit":1},
+{de:"die Qualifikation","info":"çoğul: -en","tr":"nitelik, yeterlilik","type":"isim","art":"die","unit":1},
+{de:"das Ziel","info":"çoğul: -e","tr":"hedef, amaç","type":"isim","art":"das","unit":1},
+{de:"der Einstieg","info":"çoğul: -e","tr":"giriş, başlangıç","type":"isim","art":"der","unit":1},
+{de:"die Mitarbeit","info":"tekil (Sg.)","tr":"katılım, işbirliği","type":"isim","art":"die","unit":1},
+{de:"das Au-pair","info":"çoğul: -s","tr":"au pair (yabancı aile yanında çalışan genç)","type":"isim","art":"das","unit":1},
+{de:"der Konditor","info":"çoğul: -en","tr":"pastacı (erkek)","type":"isim","art":"der","unit":1},
+{de:"die Konditorin","info":"çoğul: -nen","tr":"pastacı (kadın)","type":"isim","art":"die","unit":1},
+{de:"die Laune","info":"çoğul: -n","tr":"ruh hali, mizaç","type":"isim","art":"die","unit":1},
+{de:"der Wunsch","info":"çoğul: -wünsche","tr":"dilek, istek","type":"isim","art":"der","unit":1},
+{de:"die Erlaubnis","info":"çoğul: -se","tr":"izin","type":"isim","art":"die","unit":1},
+{de:"die Arbeitserlaubnis","info":"çoğul: -se","tr":"çalışma izni","type":"isim","art":"die","unit":1},
+{de:"die Bescheinigung","info":"çoğul: -en","tr":"belge, tasdikname","type":"isim","art":"die","unit":1},
+{de:"der Laden","info":"çoğul: -läden","tr":"dükkan, mağaza","type":"isim","art":"der","unit":1},
+{de:"das Lager","info":"çoğul: -","tr":"depo, kamp","type":"isim","art":"das","unit":1},
+{de:"das Gerät","info":"çoğul: -e","tr":"alet, cihaz","type":"isim","art":"das","unit":1},
+{de:"der Kühlschrank","info":"çoğul: -schränke","tr":"buzdolabı","type":"isim","art":"der","unit":1},
+{de:"das Waschmittel","info":"çoğul: -","tr":"deterjan","type":"isim","art":"das","unit":1},
+{de:"die Möglichkeit","info":"çoğul: -en","tr":"imkân, olasılık","type":"isim","art":"die","unit":1},
+{de:"der Berater","info":"çoğul: -","tr":"danışman (erkek)","type":"isim","art":"der","unit":1},
+{de:"die Beraterin","info":"çoğul: -nen","tr":"danışman (kadın)","type":"isim","art":"die","unit":1},
+{de:"die Untersuchung","info":"çoğul: -en","tr":"muayene, inceleme","type":"isim","art":"die","unit":1},
+{de:"der Elternsprechtag","info":"çoğul: -e","tr":"veli toplantısı günü","type":"isim","art":"der","unit":1},
+// FİİLLER
+{de:"umgehen (mit)","info":"güçlü fiil · umging · umgegangen","tr":"(bir şeyle) başa çıkmak, kullanmak","type":"fiil","art":"v","unit":1},
+{de:"versuchen","info":"zayıf fiil · versuchte · versucht","tr":"denemek, çalışmak","type":"fiil","art":"v","unit":1},
+{de:"sich informieren (über)","info":"dönüşlü fiil","tr":"(hakkında) bilgi edinmek","type":"fiil","art":"v","unit":1},
+{de:"abschließen","info":"güçlü fiil · schloss ab · abgeschlossen · ayrılabilir","tr":"tamamlamak, bitirmek","type":"fiil","art":"v","unit":1},
+{de:"nachholen","info":"ayrılabilir fiil","tr":"telafi etmek, sonradan yapmak","type":"fiil","art":"v","unit":1},
+{de:"vereinbaren","info":"ayrılamaz fiil","tr":"kararlaştırmak, anlaşmak","type":"fiil","art":"v","unit":1},
+{de:"bestätigen","info":"ayrılamaz fiil","tr":"onaylamak, doğrulamak","type":"fiil","art":"v","unit":1},
+{de:"benachrichtigen","info":"ayrılamaz fiil","tr":"haberdar etmek, bildirmek","type":"fiil","art":"v","unit":1},
+{de:"verschieben","info":"güçlü fiil · verschob · verschoben","tr":"ertelemek, ötelemek","type":"fiil","art":"v","unit":1},
+// SIFATLAR
+{de:"anerkannt","info":"sıfat / Partizip II","tr":"tanınmış, kabul görmüş","type":"sifat","art":"adj","unit":1},
+{de:"illegal","info":"sıfat","tr":"yasal olmayan, illegal","type":"sifat","art":"adj","unit":1},
+{de:"beruflich","info":"sıfat/zarf","tr":"mesleki, iş ile ilgili","type":"sifat","art":"adj","unit":1},
+{de:"selbstständig","info":"sıfat","tr":"bağımsız, serbest çalışan","type":"sifat","art":"adj","unit":1},
+{de:"fest","info":"sıfat","tr":"sabit, daimi (iş)","type":"sifat","art":"adj","unit":1},
+{de:"ausgebildet","info":"Partizip II sıfat olarak","tr":"yetişmiş, eğitim görmüş","type":"sifat","art":"adj","unit":1},
+{de:"abgeschlossen","info":"Partizip II sıfat olarak","tr":"tamamlanmış, bitmiş","type":"sifat","art":"adj","unit":1},
+{de:"angestellt","info":"Partizip II sıfat olarak","tr":"çalışan (bağımlı)","type":"sifat","art":"adj","unit":1},
+{de:"sympathisch","info":"sıfat","tr":"sempatik, hoş","type":"sifat","art":"adj","unit":1},
+{de:"zufällig","info":"sıfat/zarf","tr":"tesadüfi, rastlantısal","type":"sifat","art":"adj","unit":1},
+{de:"formal","info":"sıfat","tr":"resmi, biçimsel","type":"sifat","art":"adj","unit":1},
+{de:"frühzeitig","info":"sıfat/zarf","tr":"zamanında, erken","type":"sifat","art":"adj","unit":1},
+{de:"verhindert","info":"sıfat","tr":"meşgul, engeli olan","type":"sifat","art":"adj","unit":1},
+// ZARFLAR
+{de:"daher","info":"bağlaç-zarf","tr":"bu yüzden, dolayısıyla","type":"zarf","art":"adv","unit":1},
+{de:"deswegen","info":"bağlaç-zarf","tr":"bu nedenle","type":"zarf","art":"adv","unit":1},
+{de:"genannt","info":"Partizip II","tr":"adı geçen, söz konusu","type":"zarf","art":"adv","unit":1},
+
+// ======================== ÜNİTE 2 ========================
+{de:"der Zettel","info":"çoğul: -","tr":"not kâğıdı","type":"isim","art":"der","unit":2},
+{de:"der Handzettel","info":"çoğul: -","tr":"el ilanı, broşür","type":"isim","art":"der","unit":2},
+{de:"das Plakat","info":"çoğul: -e","tr":"afiş, poster","type":"isim","art":"das","unit":2},
+{de:"die Eröffnung","info":"çoğul: -en","tr":"açılış","type":"isim","art":"die","unit":2},
+{de:"der Besucher","info":"çoğul: -","tr":"ziyaretçi (erkek)","type":"isim","art":"der","unit":2},
+{de:"die Besucherin","info":"çoğul: -nen","tr":"ziyaretçi (kadın)","type":"isim","art":"die","unit":2},
+{de:"das Publikum","info":"tekil (Sg.)","tr":"seyirci kitlesi, izleyici","type":"isim","art":"das","unit":2},
+{de:"der Künstler","info":"çoğul: -","tr":"sanatçı (erkek)","type":"isim","art":"der","unit":2},
+{de:"die Künstlerin","info":"çoğul: -nen","tr":"sanatçı (kadın)","type":"isim","art":"die","unit":2},
+{de:"der Verein","info":"çoğul: -e","tr":"dernek, kulüp","type":"isim","art":"der","unit":2},
+{de:"die Bühne","info":"çoğul: -n","tr":"sahne","type":"isim","art":"die","unit":2},
+{de:"das Zelt","info":"çoğul: -e","tr":"çadır","type":"isim","art":"das","unit":2},
+{de:"die Disko","info":"çoğul: -s","tr":"disko","type":"isim","art":"die","unit":2},
+{de:"die Oper","info":"çoğul: -n","tr":"opera","type":"isim","art":"die","unit":2},
+{de:"die Fußgängerzone","info":"çoğul: -n","tr":"yaya bölgesi","type":"isim","art":"die","unit":2},
+{de:"die Innenstadt","info":"çoğul: -städte","tr":"şehir merkezi","type":"isim","art":"die","unit":2},
+{de:"der Auftritt","info":"çoğul: -e","tr":"sahneye çıkış, performans","type":"isim","art":"der","unit":2},
+{de:"die Kultur","info":"çoğul: -en","tr":"kültür","type":"isim","art":"die","unit":2},
+{de:"der Quatsch","info":"tekil (Sg.)","tr":"saçmalık","type":"isim","art":"der","unit":2},
+{de:"die Stimmung","info":"çoğul: -en","tr":"atmosfer, ruh hali","type":"isim","art":"die","unit":2},
+{de:"die Welt","info":"tekil (Sg.)","tr":"dünya","type":"isim","art":"die","unit":2},
+{de:"der Flohmarkt","info":"çoğul: -märkte","tr":"bit pazarı","type":"isim","art":"der","unit":2},
+{de:"das Erlebnis","info":"çoğul: -se","tr":"deneyim, yaşantı","type":"isim","art":"das","unit":2},
+{de:"der Flug","info":"çoğul: -flüge","tr":"uçuş","type":"isim","art":"der","unit":2},
+{de:"die Tüte","info":"çoğul: -n","tr":"poşet, çanta","type":"isim","art":"die","unit":2},
+{de:"die Heimat","info":"tekil (Sg.)","tr":"vatan, memleket","type":"isim","art":"die","unit":2},
+{de:"die Muttersprache","info":"çoğul: -n","tr":"ana dil","type":"isim","art":"die","unit":2},
+{de:"das Heimweh","info":"tekil (Sg.)","tr":"yurt özlemi, memleket hasreti","type":"isim","art":"das","unit":2},
+{de:"der Anfang","info":"çoğul: -fänge","tr":"başlangıç","type":"isim","art":"der","unit":2},
+{de:"die Sache","info":"çoğul: -n","tr":"şey, mesele","type":"isim","art":"die","unit":2},
+{de:"der Beitrag","info":"çoğul: -träge","tr":"katkı, aidat","type":"isim","art":"der","unit":2},
+{de:"der Einwohner","info":"çoğul: -","tr":"sakin, ikamet eden (erkek)","type":"isim","art":"der","unit":2},
+{de:"die Einwohnerin","info":"çoğul: -nen","tr":"sakin, ikamet eden (kadın)","type":"isim","art":"die","unit":2},
+{de:"der Chor","info":"çoğul: -chöre","tr":"koro","type":"isim","art":"der","unit":2},
+{de:"der Witz","info":"çoğul: -e","tr":"şaka, fıkra","type":"isim","art":"der","unit":2},
+{de:"der Text","info":"çoğul: -e","tr":"metin, söz","type":"isim","art":"der","unit":2},
+{de:"das Theaterstück","info":"çoğul: -e","tr":"tiyatro oyunu","type":"isim","art":"das","unit":2},
+{de:"das Heimatland","info":"çoğul: -länder","tr":"anatat, memleket ülkesi","type":"isim","art":"das","unit":2},
+// FİİLLER Ü2
+{de:"sich fühlen","info":"dönüşlü fiil","tr":"hissetmek, kendini hissetmek","type":"fiil","art":"v","unit":2},
+{de:"sich gewöhnen an","info":"dönüşlü fiil + Akkusatif","tr":"alışmak (bir şeye)","type":"fiil","art":"v","unit":2},
+{de:"vermissen","info":"ayrılamaz fiil","tr":"özlemek","type":"fiil","art":"v","unit":2},
+{de:"kennen","info":"karışık çekim · kannte · gekannt","tr":"tanımak, bilmek","type":"fiil","art":"v","unit":2},
+{de:"auffallen","info":"güçlü · fiel auf · aufgefallen · ayrılabilir","tr":"dikkat çekmek","type":"fiil","art":"v","unit":2},
+{de:"sich erinnern (an)","info":"dönüşlü fiil + Akkusatif","tr":"hatırlamak","type":"fiil","art":"v","unit":2},
+{de:"schließen","info":"güçlü fiil · schloss · geschlossen","tr":"kapatmak","type":"fiil","art":"v","unit":2},
+{de:"buchen","info":"zayıf fiil","tr":"rezervasyon yaptırmak","type":"fiil","art":"v","unit":2},
+{de:"begrüßen","info":"ayrılamaz fiil","tr":"karşılamak, selamlamak","type":"fiil","art":"v","unit":2},
+{de:"mitmachen (bei)","info":"ayrılabilir fiil","tr":"katılmak, birlikte yapmak","type":"fiil","art":"v","unit":2},
+{de:"unterhalten","info":"güçlü · unterhielt · unterhalten · ayrılamaz","tr":"eğlendirmek; sohbet etmek","type":"fiil","art":"v","unit":2},
+{de:"sorgen (für)","info":"zayıf fiil","tr":"sağlamak, ilgilenmek","type":"fiil","art":"v","unit":2},
+{de:"verteilen","info":"ayrılamaz fiil","tr":"dağıtmak, paylaştırmak","type":"fiil","art":"v","unit":2},
+{de:"sich verabreden (mit)","info":"dönüşlü fiil","tr":"randevulaşmak, buluşmak","type":"fiil","art":"v","unit":2},
+{de:"beitragen (zu)","info":"güçlü · trug bei · beigetragen · ayrılabilir","tr":"katkıda bulunmak","type":"fiil","art":"v","unit":2},
+{de:"auftreten","info":"güçlü · trat auf · aufgetreten · ayrılabilir","tr":"sahneye çıkmak, davranmak","type":"fiil","art":"v","unit":2},
+{de:"aufführen","info":"ayrılabilir fiil","tr":"sahnede göstermek, icra etmek","type":"fiil","art":"v","unit":2},
+// SIFATLAR Ü2
+{de:"fremd","info":"sıfat","tr":"yabancı","type":"sifat","art":"adj","unit":2},
+{de:"unsicher","info":"sıfat","tr":"güvensiz, belirsiz","type":"sifat","art":"adj","unit":2},
+{de:"langsam","info":"sıfat/zarf","tr":"yavaş","type":"sifat","art":"adj","unit":2},
+{de:"einsam","info":"sıfat","tr":"yalnız","type":"sifat","art":"adj","unit":2},
+{de:"nervös","info":"sıfat","tr":"sinirli, gergin","type":"sifat","art":"adj","unit":2},
+{de:"erschöpft","info":"sıfat","tr":"bitkin, tükenmiş","type":"sifat","art":"adj","unit":2},
+{de:"anders","info":"sıfat/zarf","tr":"farklı, başka","type":"sifat","art":"adj","unit":2},
+{de:"stark","info":"sıfat","tr":"güçlü, kuvvetli","type":"sifat","art":"adj","unit":2},
+{de:"nah","info":"sıfat","tr":"yakın","type":"sifat","art":"adj","unit":2},
+{de:"aktiv","info":"sıfat","tr":"aktif, etkin","type":"sifat","art":"adj","unit":2},
+{de:"beliebt","info":"sıfat","tr":"popüler, sevilen","type":"sifat","art":"adj","unit":2},
+// ZARFLAR Ü2
+{de:"zurück","info":"zarf/önek","tr":"geri, geri doğru","type":"zarf","art":"adv","unit":2},
+
+// ======================== ÜNİTE 3 ========================
+{de:"die Einrichtung","info":"çoğul: -en","tr":"kurum, tesis; mobilya","type":"isim","art":"die","unit":3},
+{de:"die Fortbildung","info":"çoğul: -en","tr":"ileri eğitim, mesleki gelişim","type":"isim","art":"die","unit":3},
+{de:"die Qualifizierung","info":"çoğul: -en","tr":"nitelendirme, sertifikalandırma","type":"isim","art":"die","unit":3},
+{de:"die Lehre","info":"çoğul: -n","tr":"çıraklık eğitimi","type":"isim","art":"die","unit":3},
+{de:"der Lehrling","info":"çoğul: -e","tr":"çırak, stajyer","type":"isim","art":"der","unit":3},
+{de:"der/die Auszubildende","info":"çoğul: -n · Azubi olarak da bilinir","tr":"stajyer, çırak","type":"isim","art":"der","unit":3},
+{de:"der Meister","info":"çoğul: -","tr":"usta (erkek)","type":"isim","art":"der","unit":3},
+{de:"die Meisterin","info":"çoğul: -nen","tr":"usta (kadın)","type":"isim","art":"die","unit":3},
+{de:"der Professor","info":"çoğul: -en","tr":"profesör (erkek)","type":"isim","art":"der","unit":3},
+{de:"die Professorin","info":"çoğul: -nen","tr":"profesör (kadın)","type":"isim","art":"die","unit":3},
+{de:"der Arbeitgeber","info":"çoğul: -","tr":"işveren (erkek)","type":"isim","art":"der","unit":3},
+{de:"die Arbeitgeberin","info":"çoğul: -nen","tr":"işveren (kadın)","type":"isim","art":"die","unit":3},
+{de:"der Arbeitnehmer","info":"çoğul: -","tr":"çalışan, işçi (erkek)","type":"isim","art":"der","unit":3},
+{de:"die Arbeitnehmerin","info":"çoğul: -nen","tr":"çalışan, işçi (kadın)","type":"isim","art":"die","unit":3},
+{de:"die Uhrzeit","info":"çoğul: -en","tr":"saat, zaman","type":"isim","art":"die","unit":3},
+{de:"die Dauer","info":"tekil (Sg.)","tr":"süre","type":"isim","art":"die","unit":3},
+{de:"die Kosten","info":"sadece çoğul (Pl.)","tr":"masraf, maliyet","type":"isim","art":"die","unit":3},
+{de:"die Voraussetzung","info":"çoğul: -en","tr":"ön koşul, şart","type":"isim","art":"die","unit":3},
+{de:"der Inhalt","info":"çoğul: -e","tr":"içerik, muhteva","type":"isim","art":"der","unit":3},
+{de:"die Grundlage","info":"çoğul: -n","tr":"temel, dayanak","type":"isim","art":"die","unit":3},
+{de:"die Theorie","info":"çoğul: -n","tr":"teori","type":"isim","art":"die","unit":3},
+{de:"die Praxis","info":"tekil (Sg.)","tr":"pratik, uygulama","type":"isim","art":"die","unit":3},
+{de:"die Mischung","info":"çoğul: -en","tr":"karışım, harmanlama","type":"isim","art":"die","unit":3},
+{de:"der Bereich","info":"çoğul: -e","tr":"alan, bölge","type":"isim","art":"der","unit":3},
+{de:"die Medizin","info":"tekil (Sg.)","tr":"tıp; ilaç","type":"isim","art":"die","unit":3},
+{de:"der Gartenbau","info":"tekil (Sg.)","tr":"bahçecilik","type":"isim","art":"der","unit":3},
+{de:"die Gastronomie","info":"tekil (Sg.)","tr":"gastronomi, yeme-içme","type":"isim","art":"die","unit":3},
+{de:"die Torte","info":"çoğul: -n","tr":"pasta, tart","type":"isim","art":"die","unit":3},
+{de:"die Süßspeise","info":"çoğul: -n","tr":"tatlı","type":"isim","art":"die","unit":3},
+{de:"das Rezept","info":"çoğul: -e","tr":"tarif; reçete","type":"isim","art":"das","unit":3},
+{de:"die Gaststätte","info":"çoğul: -n","tr":"lokanta, restoran","type":"isim","art":"die","unit":3},
+{de:"die Region","info":"çoğul: -en","tr":"bölge","type":"isim","art":"die","unit":3},
+{de:"die Landschaft","info":"çoğul: -en","tr":"peyzaj, doğa","type":"isim","art":"die","unit":3},
+{de:"die Natur","info":"tekil (Sg.)","tr":"doğa","type":"isim","art":"die","unit":3},
+{de:"die Technik","info":"çoğul: -en","tr":"teknik, teknoloji","type":"isim","art":"die","unit":3},
+{de:"das Heim","info":"çoğul: -e","tr":"yuva, ev","type":"isim","art":"das","unit":3},
+{de:"die Betreuungskraft","info":"çoğul: -kräfte","tr":"bakım görevlisi","type":"isim","art":"die","unit":3},
+{de:"der Umgang","info":"tekil (Sg.)","tr":"ilişki, muamele","type":"isim","art":"der","unit":3},
+{de:"der Patient","info":"çoğul: -en · n-Deklination","tr":"hasta (erkek)","type":"isim","art":"der","unit":3},
+{de:"die Patientin","info":"çoğul: -nen","tr":"hasta (kadın)","type":"isim","art":"die","unit":3},
+{de:"die Karriere","info":"çoğul: -n","tr":"kariyer","type":"isim","art":"die","unit":3},
+{de:"die Kommunikation","info":"tekil (Sg.)","tr":"iletişim","type":"isim","art":"die","unit":3},
+{de:"die Anfrage","info":"çoğul: -n","tr":"talep, soru","type":"isim","art":"die","unit":3},
+{de:"die Anrede","info":"tekil (Sg.)","tr":"hitap şekli","type":"isim","art":"die","unit":3},
+{de:"die Antwort","info":"çoğul: -en","tr":"cevap","type":"isim","art":"die","unit":3},
+{de:"der Moment","info":"çoğul: -e","tr":"an, lahza","type":"isim","art":"der","unit":3},
+{de:"die Frist","info":"çoğul: -en","tr":"süre, vade","type":"isim","art":"die","unit":3},
+// FİİLLER Ü3
+{de:"weiterlernen","info":"ayrılabilir fiil","tr":"öğrenmeye devam etmek","type":"fiil","art":"v","unit":3},
+{de:"herstellen","info":"ayrılabilir fiil","tr":"üretmek, imal etmek","type":"fiil","art":"v","unit":3},
+{de:"beantworten","info":"ayrılamaz fiil","tr":"cevaplamak","type":"fiil","art":"v","unit":3},
+{de:"danken","info":"zayıf fiil + Dativ","tr":"teşekkür etmek","type":"fiil","art":"v","unit":3},
+{de:"starten","info":"zayıf fiil","tr":"başlamak, harekete geçmek","type":"fiil","art":"v","unit":3},
+{de:"leiten","info":"zayıf fiil","tr":"yönetmek, yönlendirmek","type":"fiil","art":"v","unit":3},
+{de:"unterrichten","info":"ayrılamaz fiil","tr":"öğretmek, ders vermek","type":"fiil","art":"v","unit":3},
+{de:"nachsehen","info":"güçlü · sah nach · nachgesehen · ayrılabilir","tr":"kontrol etmek, bakmak","type":"fiil","art":"v","unit":3},
+// SIFATLAR Ü3
+{de:"aktuell","info":"sıfat","tr":"güncel, mevcut","type":"sifat","art":"adj","unit":3},
+{de:"berufsbegleitend","info":"sıfat","tr":"meslekle birlikte yürütülen","type":"sifat","art":"adj","unit":3},
+{de:"arbeitssuchend","info":"sıfat","tr":"iş arayan","type":"sifat","art":"adj","unit":3},
+{de:"handwerklich","info":"sıfat","tr":"el işi, zanaatkâr","type":"sifat","art":"adj","unit":3},
+{de:"körperlich","info":"sıfat","tr":"bedensel, fiziksel","type":"sifat","art":"adj","unit":3},
+{de:"intensiv","info":"sıfat","tr":"yoğun","type":"sifat","art":"adj","unit":3},
+{de:"extern","info":"sıfat","tr":"dış, harici","type":"sifat","art":"adj","unit":3},
+{de:"ausgewählt","info":"Partizip II sıfat","tr":"seçilmiş","type":"sifat","art":"adj","unit":3},
+{de:"höflich","info":"sıfat","tr":"kibar, nazik","type":"sifat","art":"adj","unit":3},
+// ZARFLAR Ü3
+{de:"sowie","info":"bağlaç","tr":"ve ayrıca, ile birlikte","type":"zarf","art":"adv","unit":3},
+{de:"mindestens","info":"zarf","tr":"en az","type":"zarf","art":"adv","unit":3},
+{de:"einschließlich","info":"edat + Genitiv","tr":"dahil olmak üzere","type":"zarf","art":"adv","unit":3},
+
+// ======================== ÜNİTE 4 ========================
+{de:"der Spezialist","info":"çoğul: -en · n-Deklination","tr":"uzman (erkek)","type":"isim","art":"der","unit":4},
+{de:"die Spezialistin","info":"çoğul: -nen","tr":"uzman (kadın)","type":"isim","art":"die","unit":4},
+{de:"die Notaufnahme","info":"çoğul: -n","tr":"acil servis","type":"isim","art":"die","unit":4},
+{de:"das Blut","info":"tekil (Sg.)","tr":"kan","type":"isim","art":"das","unit":4},
+{de:"das Herz","info":"çoğul: -en · n-Deklination","tr":"kalp","type":"isim","art":"das","unit":4},
+{de:"der Kreislauf","info":"çoğul: -läufe","tr":"kan dolaşımı, döngü","type":"isim","art":"der","unit":4},
+{de:"der Atem","info":"tekil (Sg.)","tr":"nefes","type":"isim","art":"der","unit":4},
+{de:"die Wärme","info":"tekil (Sg.)","tr":"sıcaklık","type":"isim","art":"die","unit":4},
+{de:"die Diät","info":"çoğul: -en","tr":"diyet","type":"isim","art":"die","unit":4},
+{de:"das Mittel","info":"çoğul: -","tr":"ilaç, araç, yöntem","type":"isim","art":"das","unit":4},
+{de:"die Salbe","info":"çoğul: -n","tr":"merhem","type":"isim","art":"die","unit":4},
+{de:"die Spritze","info":"çoğul: -n","tr":"enjeksiyon, şırınga","type":"isim","art":"die","unit":4},
+{de:"der Orthopäde","info":"çoğul: -n","tr":"ortopedist (erkek)","type":"isim","art":"der","unit":4},
+{de:"die Orthopädin","info":"çoğul: -nen","tr":"ortopedist (kadın)","type":"isim","art":"die","unit":4},
+{de:"der Notfall","info":"çoğul: -fälle","tr":"acil durum","type":"isim","art":"der","unit":4},
+{de:"der Wunsch","info":"çoğul: -wünsche","tr":"istek, dilek","type":"isim","art":"der","unit":4},
+{de:"die Reaktion","info":"çoğul: -en","tr":"tepki, reaksiyon","type":"isim","art":"die","unit":4},
+{de:"der Muskel","info":"çoğul: -n","tr":"kas","type":"isim","art":"der","unit":4},
+{de:"der Blutdruck","info":"tekil (Sg.)","tr":"tansiyon, kan basıncı","type":"isim","art":"der","unit":4},
+{de:"die Ruhe","info":"tekil (Sg.)","tr":"dinginlik, sessizlik","type":"isim","art":"die","unit":4},
+{de:"der Anamnesebogen","info":"çoğul: -","tr":"anamnez formu","type":"isim","art":"der","unit":4},
+{de:"die Versicherung","info":"çoğul: -en","tr":"sigorta","type":"isim","art":"die","unit":4},
+{de:"die Versichertenkarte","info":"çoğul: -n","tr":"sigorta kartı","type":"isim","art":"die","unit":4},
+{de:"das Geschlecht","info":"çoğul: -er","tr":"cinsiyet","type":"isim","art":"das","unit":4},
+{de:"das Gewicht","info":"çoğul: -e","tr":"kilo, ağırlık","type":"isim","art":"das","unit":4},
+{de:"die Beschwerden","info":"sadece çoğul (Pl.)","tr":"şikayetler, belirtiler","type":"isim","art":"die","unit":4},
+{de:"die Verletzung","info":"çoğul: -en","tr":"yaralanma","type":"isim","art":"die","unit":4},
+{de:"der Magen","info":"çoğul: -mägen","tr":"mide","type":"isim","art":"der","unit":4},
+{de:"der Darm","info":"çoğul: -därme","tr":"bağırsak","type":"isim","art":"der","unit":4},
+{de:"der Knochen","info":"çoğul: -","tr":"kemik","type":"isim","art":"der","unit":4},
+{de:"das Gelenk","info":"çoğul: -e","tr":"eklem","type":"isim","art":"das","unit":4},
+{de:"das Knie","info":"çoğul: -","tr":"diz","type":"isim","art":"das","unit":4},
+{de:"die Lunge","info":"çoğul: -n","tr":"akciğer","type":"isim","art":"die","unit":4},
+{de:"die Haut","info":"çoğul: -häute","tr":"deri, cilt","type":"isim","art":"die","unit":4},
+{de:"der Heuschnupfen","info":"tekil (Sg.)","tr":"saman nezlesi","type":"isim","art":"der","unit":4},
+{de:"die Operation","info":"çoğul: -en","tr":"ameliyat","type":"isim","art":"die","unit":4},
+{de:"der Tropfen","info":"çoğul: -","tr":"damla","type":"isim","art":"der","unit":4},
+{de:"der Schlaf","info":"tekil (Sg.)","tr":"uyku","type":"isim","art":"der","unit":4},
+{de:"die Zigarette","info":"çoğul: -n","tr":"sigara","type":"isim","art":"die","unit":4},
+{de:"die Freizeit","info":"tekil (Sg.)","tr":"serbest zaman, boş zaman","type":"isim","art":"die","unit":4},
+// FİİLLER Ü4
+{de:"erkältet sein","info":"durum fiili","tr":"üşütmüş olmak","type":"fiil","art":"v","unit":4},
+{de:"untersuchen","info":"ayrılamaz fiil","tr":"muayene etmek, incelemek","type":"fiil","art":"v","unit":4},
+{de:"anhalten","info":"güçlü · hielt an · angehalten · ayrılabilir","tr":"durdurmak; sürmek, devam etmek","type":"fiil","art":"v","unit":4},
+{de:"zumachen","info":"ayrılabilir fiil","tr":"kapatmak","type":"fiil","art":"v","unit":4},
+{de:"abnehmen","info":"güçlü · nahm ab · abgenommen · ayrılabilir","tr":"kilo vermek; azalmak","type":"fiil","art":"v","unit":4},
+{de:"ausprobieren","info":"ayrılabilir fiil","tr":"denemek","type":"fiil","art":"v","unit":4},
+{de:"erwarten","info":"ayrılamaz fiil","tr":"beklemek","type":"fiil","art":"v","unit":4},
+{de:"hingehen","info":"güçlü · ging hin · hingegangen · ayrılabilir","tr":"gitmek (oraya)","type":"fiil","art":"v","unit":4},
+{de:"sich hinlegen","info":"ayrılabilir dönüşlü fiil","tr":"uzanmak, yatmak","type":"fiil","art":"v","unit":4},
+{de:"verschreiben","info":"güçlü · verschrieb · verschrieben · ayrılamaz","tr":"reçete yazmak","type":"fiil","art":"v","unit":4},
+{de:"krankschreiben","info":"ayrılabilir fiil","tr":"iş göremez raporu vermek","type":"fiil","art":"v","unit":4},
+{de:"impfen","info":"zayıf fiil","tr":"aşılamak","type":"fiil","art":"v","unit":4},
+{de:"einnehmen","info":"güçlü · nahm ein · eingenommen · ayrılabilir","tr":"(ilaç) almak, içmek","type":"fiil","art":"v","unit":4},
+// SIFATLAR Ü4
+{de:"pflanzlich","info":"sıfat","tr":"bitkisel","type":"sifat","art":"adj","unit":4},
+{de:"männlich","info":"sıfat","tr":"erkek, eril","type":"sifat","art":"adj","unit":4},
+{de:"weiblich","info":"sıfat","tr":"kadın, dişil","type":"sifat","art":"adj","unit":4},
+{de:"gesetzlich","info":"sıfat","tr":"yasal, kanuni","type":"sifat","art":"adj","unit":4},
+{de:"versichert","info":"sıfat","tr":"sigortalı","type":"sifat","art":"adj","unit":4},
+{de:"sonstig","info":"sıfat","tr":"diğer, bunun dışında kalan","type":"sifat","art":"adj","unit":4},
+{de:"ausreichend","info":"sıfat/zarf","tr":"yeterli","type":"sifat","art":"adj","unit":4},
+{de:"gelegentlich","info":"sıfat/zarf","tr":"ara sıra, zaman zaman","type":"sifat","art":"adj","unit":4},
+{de:"speziell","info":"sıfat","tr":"özel, hususi","type":"sifat","art":"adj","unit":4},
+{de:"fit","info":"sıfat","tr":"formda, sağlıklı","type":"sifat","art":"adj","unit":4},
+// ZARFLAR Ü4
+{de:"trotzdem","info":"bağlaç-zarf · ters anlam","tr":"yine de, buna rağmen","type":"zarf","art":"adv","unit":4},
+{de:"erst einmal","info":"zarf öbeği","tr":"önce, ilk olarak","type":"zarf","art":"adv","unit":4},
+{de:"bereits","info":"zarf","tr":"zaten, artık","type":"zarf","art":"adv","unit":4},
+{de:"gegen","info":"edat + Akkusatif","tr":"karşı; için (ilaç)","type":"zarf","art":"adv","unit":4},
+
+// ======================== ÜNİTE 5 ========================
+{de:"das Meer","info":"çoğul: -e","tr":"deniz","type":"isim","art":"das","unit":5},
+{de:"die Küste","info":"çoğul: -n","tr":"kıyı, sahil","type":"isim","art":"die","unit":5},
+{de:"der Strand","info":"çoğul: -strände","tr":"plaj, kumsal","type":"isim","art":"der","unit":5},
+{de:"die Insel","info":"çoğul: -n","tr":"ada","type":"isim","art":"die","unit":5},
+{de:"das Gebirge","info":"çoğul: -","tr":"dağ sırası, dağlık bölge","type":"isim","art":"das","unit":5},
+{de:"der Berg","info":"çoğul: -e","tr":"dağ","type":"isim","art":"der","unit":5},
+{de:"der Fluss","info":"çoğul: -flüsse","tr":"nehir","type":"isim","art":"der","unit":5},
+{de:"der See","info":"çoğul: -n","tr":"göl","type":"isim","art":"der","unit":5},
+{de:"das Schiff","info":"çoğul: -e","tr":"gemi","type":"isim","art":"das","unit":5},
+{de:"die Fähre","info":"çoğul: -n","tr":"feribot","type":"isim","art":"die","unit":5},
+{de:"das Boot","info":"çoğul: -e","tr":"sandal, tekne","type":"isim","art":"das","unit":5},
+{de:"der Ski","info":"çoğul: -er","tr":"kayak (spor aleti)","type":"isim","art":"der","unit":5},
+{de:"das Camping","info":"tekil (Sg.)","tr":"kamp yapma","type":"isim","art":"das","unit":5},
+{de:"die Pension","info":"çoğul: -en","tr":"pansiyon","type":"isim","art":"die","unit":5},
+{de:"der Rücktritt","info":"çoğul: -e","tr":"geri çekilme, istifa","type":"isim","art":"der","unit":5},
+{de:"der Abbruch","info":"çoğul: -brüche","tr":"iptal, fesih","type":"isim","art":"der","unit":5},
+{de:"die Leistung","info":"çoğul: -en","tr":"hizmet, edim; performans","type":"isim","art":"die","unit":5},
+{de:"der Anspruch","info":"çoğul: -sprüche","tr":"hak, talep","type":"isim","art":"der","unit":5},
+{de:"das Risiko","info":"çoğul: Risiken","tr":"risk","type":"isim","art":"das","unit":5},
+{de:"die Bedingung","info":"çoğul: -en","tr":"koşul, şart","type":"isim","art":"die","unit":5},
+{de:"der Grund","info":"çoğul: -gründe","tr":"neden, sebep","type":"isim","art":"der","unit":5},
+{de:"der Schaden","info":"çoğul: -schäden","tr":"hasar, zarar","type":"isim","art":"der","unit":5},
+{de:"das Eigentum","info":"tekil (Sg.)","tr":"mülk, sahip olunan şey","type":"isim","art":"das","unit":5},
+{de:"das Gepäck","info":"tekil (Sg.)","tr":"bagaj","type":"isim","art":"das","unit":5},
+{de:"die Verspätung","info":"çoğul: -en","tr":"gecikme","type":"isim","art":"die","unit":5},
+{de:"das Fahrzeug","info":"çoğul: -e","tr":"araç, taşıt","type":"isim","art":"das","unit":5},
+{de:"die Panne","info":"çoğul: -n","tr":"arıza, bozulma","type":"isim","art":"die","unit":5},
+{de:"die Rückfahrt","info":"çoğul: -en","tr":"dönüş yolculuğu","type":"isim","art":"die","unit":5},
+{de:"die Tour","info":"çoğul: -en","tr":"tur, gezi","type":"isim","art":"die","unit":5},
+{de:"das Feuer","info":"tekil (Sg.)","tr":"ateş","type":"isim","art":"das","unit":5},
+{de:"der Sturm","info":"çoğul: -stürme","tr":"fırtına","type":"isim","art":"der","unit":5},
+{de:"die Durchsage","info":"çoğul: -n","tr":"anons, duyuru","type":"isim","art":"die","unit":5},
+{de:"die Meldung","info":"çoğul: -en","tr":"haber, bildiri","type":"isim","art":"die","unit":5},
+{de:"das Parkhaus","info":"çoğul: -häuser","tr":"otopark (kapalı)","type":"isim","art":"das","unit":5},
+{de:"die Einbahnstraße","info":"çoğul: -n","tr":"tek yönlü yol","type":"isim","art":"die","unit":5},
+{de:"die Autobahn","info":"çoğul: -en","tr":"otoyol","type":"isim","art":"die","unit":5},
+{de:"der Stau","info":"tekil (Sg.)","tr":"trafik sıkışıklığı","type":"isim","art":"der","unit":5},
+{de:"die Ausfahrt","info":"çoğul: -en","tr":"çıkış (otoyol), çıkış yolu","type":"isim","art":"die","unit":5},
+{de:"das Schild","info":"çoğul: -er","tr":"tabela, işaret","type":"isim","art":"das","unit":5},
+{de:"der Gegenstand","info":"çoğul: -stände","tr":"eşya, nesne","type":"isim","art":"der","unit":5},
+{de:"der Schnee","info":"tekil (Sg.)","tr":"kar","type":"isim","art":"der","unit":5},
+// FİİLLER Ü5
+{de:"entspannen","info":"ayrılamaz fiil","tr":"rahatlamak","type":"fiil","art":"v","unit":5},
+{de:"liegen","info":"güçlü · lag · gelegen","tr":"bulunmak, yatmak","type":"fiil","art":"v","unit":5},
+{de:"surfen","info":"zayıf fiil","tr":"sörf yapmak","type":"fiil","art":"v","unit":5},
+{de:"übernachten","info":"ayrılamaz fiil","tr":"gecelemek","type":"fiil","art":"v","unit":5},
+{de:"stürzen","info":"zayıf fiil","tr":"düşmek, yıkılmak","type":"fiil","art":"v","unit":5},
+{de:"ausrutschen","info":"ayrılabilir fiil","tr":"kaymak, düşmek","type":"fiil","art":"v","unit":5},
+{de:"brechen","info":"güçlü · brach · gebrochen","tr":"kırmak, kırılmak","type":"fiil","art":"v","unit":5},
+{de:"verstauchen","info":"ayrılamaz fiil","tr":"burkmak (burnu, bileği vb.)","type":"fiil","art":"v","unit":5},
+{de:"antreten","info":"güçlü · trat an · angetreten · ayrılabilir","tr":"başlamak (yolculuğa), gitmek","type":"fiil","art":"v","unit":5},
+{de:"unterbrechen","info":"güçlü · unterbrach · unterbrochen · ayrılamaz","tr":"kesmek, ara vermek","type":"fiil","art":"v","unit":5},
+{de:"fortsetzen","info":"ayrılabilir fiil","tr":"sürdürmek, devam ettirmek","type":"fiil","art":"v","unit":5},
+{de:"verpassen","info":"ayrılamaz fiil","tr":"kaçırmak","type":"fiil","art":"v","unit":5},
+{de:"beenden","info":"ayrılamaz fiil","tr":"bitirmek, sona erdirmek","type":"fiil","art":"v","unit":5},
+{de:"übernehmen","info":"güçlü · übernahm · übernommen · ayrılamaz","tr":"devralmak, üstlenmek","type":"fiil","art":"v","unit":5},
+{de:"erstatten","info":"ayrılamaz fiil","tr":"iade etmek, geri ödemek","type":"fiil","art":"v","unit":5},
+{de:"organisieren","info":"ayrılamaz fiil","tr":"organize etmek","type":"fiil","art":"v","unit":5},
+// SIFATLAR Ü5
+{de:"beschädigt","info":"Partizip II sıfat","tr":"hasarlı, zarar görmüş","type":"sifat","art":"adj","unit":5},
+{de:"verspätet","info":"Partizip II sıfat","tr":"gecikmiş","type":"sifat","art":"adj","unit":5},
+{de:"genutzt","info":"Partizip II sıfat","tr":"kullanılmış","type":"sifat","art":"adj","unit":5},
+{de:"zusätzlich","info":"sıfat/zarf","tr":"ek, ilave","type":"sifat","art":"adj","unit":5},
+// ZARFLAR Ü5
+{de:"gegenüber","info":"edat + Dativ veya zarf","tr":"karşısında, karşında","type":"zarf","art":"adv","unit":5},
+{de:"um","info":"edat + Akkusatif","tr":"etrafında; saat için (um 8 Uhr)","type":"zarf","art":"adv","unit":5},
+{de:"durch","info":"edat + Akkusatif","tr":"içinden, aracılığıyla","type":"zarf","art":"adv","unit":5},
+{de:"entlang","info":"edat + Akkusatif (sonra) ya da Dativ","tr":"boyunca","type":"zarf","art":"adv","unit":5},
+{de:"unten","info":"zarf","tr":"aşağıda, altta","type":"zarf","art":"adv","unit":5},
+{de:"falls","info":"bağlaç","tr":"eğer, -dığı takdirde","type":"zarf","art":"adv","unit":5},
+
+// ======================== ÜNİTE 6 ========================
+{de:"die Ware","info":"çoğul: -n","tr":"mal, ürün","type":"isim","art":"die","unit":6},
+{de:"die Sicherheit","info":"çoğul: -en","tr":"güvenlik","type":"isim","art":"die","unit":6},
+{de:"die Vorschrift","info":"çoğul: -en","tr":"kural, yönetmelik","type":"isim","art":"die","unit":6},
+{de:"der Gabelstapler","info":"çoğul: -","tr":"forklift","type":"isim","art":"der","unit":6},
+{de:"die Speise","info":"çoğul: -n","tr":"yemek, yiyecek","type":"isim","art":"die","unit":6},
+{de:"das Geschirr","info":"tekil (Sg.)","tr":"bulaşık, sofra takımı","type":"isim","art":"das","unit":6},
+{de:"der Empfang","info":"tekil (Sg.)","tr":"resepsiyon; alım","type":"isim","art":"der","unit":6},
+{de:"die Einweisung","info":"çoğul: -en","tr":"yönlendirme, brifing","type":"isim","art":"die","unit":6},
+{de:"die Maßnahme","info":"çoğul: -n","tr":"önlem, tedbir","type":"isim","art":"die","unit":6},
+{de:"die Beschäftigung","info":"çoğul: -en","tr":"iş, uğraş","type":"isim","art":"die","unit":6},
+{de:"die Bezeichnung","info":"çoğul: -en","tr":"ad, adlandırma","type":"isim","art":"die","unit":6},
+{de:"die Art","info":"çoğul: -en","tr":"tür, çeşit","type":"isim","art":"die","unit":6},
+{de:"die Anzahl","info":"tekil (Sg.)","tr":"sayı, miktar","type":"isim","art":"die","unit":6},
+{de:"der Zeitraum","info":"çoğul: -räume","tr":"zaman dilimi","type":"isim","art":"der","unit":6},
+{de:"der Sozialversicherungsausweis","info":"çoğul: -e","tr":"sosyal sigorta kimliği","type":"isim","art":"der","unit":6},
+{de:"die Steuer","info":"çoğul: -n","tr":"vergi","type":"isim","art":"die","unit":6},
+{de:"die Steuerklasse","info":"çoğul: -n","tr":"vergi dilimi","type":"isim","art":"die","unit":6},
+{de:"die Steueridentifikationsnummer","info":"çoğul: -n","tr":"vergi kimlik numarası","type":"isim","art":"die","unit":6},
+{de:"das Finanzamt","info":"çoğul: -ämter","tr":"vergi dairesi","type":"isim","art":"das","unit":6},
+{de:"die Konfession","info":"çoğul: -en","tr":"mezhep, din","type":"isim","art":"die","unit":6},
+{de:"der Ehegatte","info":"çoğul: -n · n-Deklination","tr":"eş (erkek)","type":"isim","art":"der","unit":6},
+{de:"die Ehegattin","info":"çoğul: -nen","tr":"eş (kadın)","type":"isim","art":"die","unit":6},
+{de:"das Ausland","info":"tekil (Sg.)","tr":"yurt dışı","type":"isim","art":"das","unit":6},
+{de:"die Vorspeise","info":"çoğul: -n","tr":"başlangıç yemeği","type":"isim","art":"die","unit":6},
+{de:"die Soße","info":"çoğul: -n","tr":"sos","type":"isim","art":"die","unit":6},
+{de:"der Teig","info":"çoğul: -e","tr":"hamur","type":"isim","art":"der","unit":6},
+{de:"das Steak","info":"çoğul: -s","tr":"biftek","type":"isim","art":"das","unit":6},
+{de:"der Quark","info":"tekil (Sg.)","tr":"lor peyniri","type":"isim","art":"der","unit":6},
+{de:"die Birne","info":"çoğul: -n","tr":"armut","type":"isim","art":"die","unit":6},
+{de:"der Honig","info":"çoğul: -e","tr":"bal","type":"isim","art":"der","unit":6},
+// FİİLLER Ü6
+{de:"besprechen","info":"güçlü · besprach · besprochen · ayrılamaz","tr":"görüşmek, tartışmak","type":"fiil","art":"v","unit":6},
+{de:"verpacken","info":"ayrılamaz fiil","tr":"paketlemek","type":"fiil","art":"v","unit":6},
+{de:"transportieren","info":"ayrılamaz fiil","tr":"taşımak, nakletmek","type":"fiil","art":"v","unit":6},
+{de:"überprüfen","info":"ayrılamaz fiil","tr":"denetlemek, kontrol etmek","type":"fiil","art":"v","unit":6},
+{de:"ausziehen","info":"güçlü · zog aus · ausgezogen · ayrılabilir","tr":"çıkarmak (kıyafet); taşınmak","type":"fiil","art":"v","unit":6},
+{de:"schälen","info":"zayıf fiil","tr":"soymak (meyve)","type":"fiil","art":"v","unit":6},
+{de:"abwaschen","info":"güçlü · wusch ab · abgewaschen · ayrılabilir","tr":"yıkamak (bulaşık)","type":"fiil","art":"v","unit":6},
+{de:"zubereiten","info":"ayrılabilir fiil","tr":"hazırlamak (yemek)","type":"fiil","art":"v","unit":6},
+{de:"erhalten","info":"güçlü · erhielt · erhalten · ayrılamaz","tr":"almak, elde etmek","type":"fiil","art":"v","unit":6},
+{de:"vorliegen","info":"güçlü · lag vor · vorgelegen · ayrılabilir","tr":"mevcut olmak, var olmak","type":"fiil","art":"v","unit":6},
+{de:"bedeuten","info":"ayrılamaz fiil","tr":"anlamına gelmek","type":"fiil","art":"v","unit":6},
+{de:"reinschreiben","info":"ayrılabilir fiil","tr":"temize çekmek","type":"fiil","art":"v","unit":6},
+{de:"sich auskennen","info":"karışık · kannte sich aus · ayrılabilir + dönüşlü","tr":"bilmek (bir alanda), becerikli olmak","type":"fiil","art":"v","unit":6},
+{de:"führen","info":"zayıf fiil","tr":"yönetmek, götürmek","type":"fiil","art":"v","unit":6},
+{de:"verständigen","info":"ayrılamaz fiil","tr":"anlaşmak, haberdar etmek","type":"fiil","art":"v","unit":6},
+{de:"entkernen","info":"zayıf fiil","tr":"çekirdeklerini çıkarmak","type":"fiil","art":"v","unit":6},
+{de:"mischen","info":"zayıf fiil","tr":"karıştırmak","type":"fiil","art":"v","unit":6},
+{de:"hacken","info":"zayıf fiil","tr":"kıymak, doğramak","type":"fiil","art":"v","unit":6},
+{de:"schlagen","info":"güçlü · schlug · geschlagen","tr":"çırpmak, vurmak","type":"fiil","art":"v","unit":6},
+{de:"rühren","info":"zayıf fiil","tr":"karıştırmak (kaşıkla)","type":"isim","art":"v","unit":6},
+{de:"verrühren","info":"ayrılamaz fiil","tr":"iyice karıştırmak","type":"fiil","art":"v","unit":6},
+{de:"heben","info":"güçlü · hob · gehoben","tr":"kaldırmak","type":"fiil","art":"v","unit":6},
+{de:"braten","info":"güçlü · briet · gebraten","tr":"kızartmak, kavurmak","type":"fiil","art":"v","unit":6},
+{de:"füllen","info":"zayıf fiil","tr":"doldurmak","type":"fiil","art":"v","unit":6},
+{de:"vorbereiten","info":"ayrılabilir fiil","tr":"hazırlamak","type":"fiil","art":"v","unit":6},
+// SIFATLAR Ü6
+{de:"verwitwet","info":"sıfat","tr":"dul","type":"sifat","art":"adj","unit":6},
+{de:"schwerbehindert","info":"sıfat","tr":"ağır engelli","type":"sifat","art":"adj","unit":6},
+{de:"zuständig","info":"sıfat","tr":"yetkili, sorumlu","type":"sifat","art":"adj","unit":6},
+{de:"kühl","info":"sıfat","tr":"serin","type":"sifat","art":"adj","unit":6},
+{de:"vorsichtig","info":"sıfat","tr":"dikkatli, ihtiyatlı","type":"sifat","art":"adj","unit":6},
+// ZARFLAR Ü6
+{de:"jederzeit","info":"zarf","tr":"her zaman, istediği zaman","type":"zarf","art":"adv","unit":6},
+{de:"innerhalb","info":"edat + Genitiv","tr":"içinde, dahilinde","type":"zarf","art":"adv","unit":6},
+{de:"Wofür?","info":"soru zamiri bileşik","tr":"Neden? Ne için?","type":"zarf","art":"adv","unit":6},
+{de:"damit","info":"bağlaç / zarf","tr":"böylece, bununla; ki, -sın diye","type":"zarf","art":"adv","unit":6},
+{de:"anschließend","info":"zarf","tr":"ardından, daha sonra","type":"zarf","art":"adv","unit":6},
+{de:"im Auftrag (i.A.)","info":"deyim","tr":"adına, namına","type":"zarf","art":"adv","unit":6},
+
+// ======================== ÜNİTE 7 ========================
+{de:"das Medium","info":"çoğul: Medien","tr":"medya, araç","type":"isim","art":"das","unit":7},
+{de:"der Rechner","info":"çoğul: -","tr":"bilgisayar","type":"isim","art":"der","unit":7},
+{de:"der Monitor","info":"çoğul: -e","tr":"monitör, ekran","type":"isim","art":"der","unit":7},
+{de:"die Tastatur","info":"çoğul: -en","tr":"klavye","type":"isim","art":"die","unit":7},
+{de:"die Maus","info":"çoğul: -mäuse","tr":"fare (bilgisayar)","type":"isim","art":"die","unit":7},
+{de:"der Drucker","info":"çoğul: -","tr":"yazıcı","type":"isim","art":"der","unit":7},
+{de:"das Faxgerät","info":"çoğul: -e","tr":"faks cihazı","type":"isim","art":"das","unit":7},
+{de:"der Router","info":"çoğul: -","tr":"modem/router","type":"isim","art":"der","unit":7},
+{de:"der USB-Stick","info":"çoğul: -s","tr":"USB bellek","type":"isim","art":"der","unit":7},
+{de:"die CD","info":"çoğul: -s","tr":"CD","type":"isim","art":"die","unit":7},
+{de:"die Software","info":"tekil (Sg.)","tr":"yazılım","type":"isim","art":"die","unit":7},
+{de:"die Datei","info":"çoğul: -en","tr":"dosya","type":"isim","art":"die","unit":7},
+{de:"das Mobiltelefon","info":"çoğul: -e","tr":"cep telefonu","type":"isim","art":"das","unit":7},
+{de:"die Bedienungsanleitung","info":"çoğul: -en","tr":"kullanım kılavuzu","type":"isim","art":"die","unit":7},
+{de:"das Papier","info":"tekil (Sg.)","tr":"kâğıt","type":"isim","art":"das","unit":7},
+{de:"die Vorstellung","info":"çoğul: -en","tr":"fikir, tanıtım; temsil","type":"isim","art":"die","unit":7},
+{de:"das Fach","info":"çoğul: -fächer","tr":"ders, alan","type":"isim","art":"das","unit":7},
+{de:"der Vertreter","info":"çoğul: -","tr":"temsilci (erkek)","type":"isim","art":"der","unit":7},
+{de:"die Vertreterin","info":"çoğul: -nen","tr":"temsilci (kadın)","type":"isim","art":"die","unit":7},
+{de:"der Badesee","info":"çoğul: -seen","tr":"yüzme gölü","type":"isim","art":"der","unit":7},
+{de:"der Kletterwald","info":"çoğul: -wälder","tr":"tırmanma parkı","type":"isim","art":"der","unit":7},
+{de:"die Ausrüstung","info":"çoğul: -en","tr":"ekipman, teçhizat","type":"isim","art":"die","unit":7},
+{de:"der Betreuer","info":"çoğul: -","tr":"gözetmen, rehber (erkek)","type":"isim","art":"der","unit":7},
+{de:"die Betreuerin","info":"çoğul: -nen","tr":"gözetmen, rehber (kadın)","type":"isim","art":"die","unit":7},
+{de:"das Verbot","info":"çoğul: -e","tr":"yasak","type":"isim","art":"das","unit":7},
+{de:"die Meinung","info":"çoğul: -en","tr":"görüş, kanı","type":"isim","art":"die","unit":7},
+{de:"der Sender","info":"çoğul: -","tr":"kanal, verici","type":"isim","art":"der","unit":7},
+{de:"die Sendung","info":"çoğul: -en","tr":"program, yayın","type":"isim","art":"die","unit":7},
+{de:"die Serie","info":"çoğul: -n","tr":"dizi","type":"isim","art":"die","unit":7},
+{de:"die Mediathek","info":"çoğul: -en","tr":"medya kütüphanesi","type":"isim","art":"die","unit":7},
+{de:"der Streamingdienst","info":"çoğul: -e","tr":"yayın hizmeti","type":"isim","art":"der","unit":7},
+{de:"das Streaming","info":"tekil (Sg.)","tr":"çevrimiçi yayın","type":"isim","art":"das","unit":7},
+{de:"das Abo","info":"çoğul: -s (das Abonnement)","tr":"abonelik","type":"isim","art":"das","unit":7},
+// FİİLLER Ü7
+{de:"drucken","info":"zayıf fiil","tr":"yazdırmak, basmak","type":"fiil","art":"v","unit":7},
+{de:"faxen","info":"zayıf fiil","tr":"faks çekmek","type":"fiil","art":"v","unit":7},
+{de:"kopieren","info":"ayrılamaz fiil","tr":"kopyalamak, fotokopi çekmek","type":"fiil","art":"v","unit":7},
+{de:"tippen","info":"zayıf fiil","tr":"yazmak (klavyede)","type":"fiil","art":"v","unit":7},
+{de:"klicken","info":"zayıf fiil","tr":"tıklamak","type":"fiil","art":"v","unit":7},
+{de:"installieren","info":"ayrılamaz fiil","tr":"yüklemek, kurmak","type":"fiil","art":"v","unit":7},
+{de:"fehlen","info":"zayıf fiil + Dativ","tr":"eksik olmak, kayıp olmak","type":"fiil","art":"v","unit":7},
+{de:"passieren","info":"ayrılamaz fiil","tr":"olmak, gerçekleşmek","type":"fiil","art":"v","unit":7},
+{de:"sich beschäftigen mit","info":"dönüşlü fiil","tr":"ile ilgilenmek, uğraşmak","type":"fiil","art":"v","unit":7},
+{de:"dafür sein","info":"deyim","tr":"lehinde olmak, desteklemek","type":"fiil","art":"v","unit":7},
+{de:"dagegen sein","info":"deyim","tr":"karşısında olmak, muhalefet etmek","type":"fiil","art":"v","unit":7},
+{de:"recht haben","info":"deyim","tr":"haklı olmak","type":"fiil","art":"v","unit":7},
+{de:"zustimmen","info":"ayrılabilir fiil + Dativ","tr":"onaylamak, katılmak","type":"fiil","art":"v","unit":7},
+{de:"ablehnen","info":"ayrılabilir fiil","tr":"reddetmek","type":"fiil","art":"v","unit":7},
+{de:"nutzen","info":"zayıf fiil","tr":"kullanmak, yararlanmak","type":"fiil","art":"v","unit":7},
+{de:"abhängig sein (von)","info":"deyim","tr":"bağımlı olmak (bir şeye)","type":"fiil","art":"v","unit":7},
+{de:"baden","info":"zayıf fiil","tr":"banyo yapmak, yüzmek","type":"fiil","art":"v","unit":7},
+{de:"klettern","info":"zayıf fiil · sein ile","tr":"tırmanmak","type":"fiil","art":"v","unit":7},
+// SIFATLAR Ü7
+{de:"bestimmt","info":"sıfat/zarf","tr":"belirli, kesin","type":"sifat","art":"adj","unit":7},
+{de:"gefährlich","info":"sıfat","tr":"tehlikeli","type":"sifat","art":"adj","unit":7},
+{de:"einzeln","info":"sıfat","tr":"tek tek, ayrı ayrı","type":"sifat","art":"adj","unit":7},
+// ZARFLAR Ü7
+{de:"eigentlich","info":"zarf","tr":"aslında","type":"zarf","art":"adv","unit":7},
+{de:"erst","info":"zarf","tr":"henüz; ancak, sadece","type":"zarf","art":"adv","unit":7},
+{de:"obwohl","info":"bağlaç · ters anlam","tr":"rağmen, gerçi","type":"zarf","art":"adv","unit":7},
+
+// ======================== ÜNİTE 8 ========================
+{de:"die Besichtigung","info":"çoğul: -en","tr":"gezme, inceleme","type":"isim","art":"die","unit":8},
+{de:"der Makler","info":"çoğul: -","tr":"emlakçı (erkek)","type":"isim","art":"der","unit":8},
+{de:"die Maklerin","info":"çoğul: -nen","tr":"emlakçı (kadın)","type":"isim","art":"die","unit":8},
+{de:"der Interessent","info":"çoğul: -en · n-Deklination","tr":"ilgilenen kişi (erkek)","type":"isim","art":"der","unit":8},
+{de:"die Interessentin","info":"çoğul: -nen","tr":"ilgilenen kişi (kadın)","type":"isim","art":"die","unit":8},
+{de:"der Rand","info":"çoğul: -ränder","tr":"kenar, sınır","type":"isim","art":"der","unit":8},
+{de:"der Umzug","info":"çoğul: -züge","tr":"taşınma","type":"isim","art":"der","unit":8},
+{de:"das Dach","info":"çoğul: -dächer","tr":"çatı","type":"isim","art":"das","unit":8},
+{de:"das Stockwerk","info":"çoğul: -e","tr":"kat","type":"isim","art":"das","unit":8},
+{de:"die Terrasse","info":"çoğul: -n","tr":"teras","type":"isim","art":"die","unit":8},
+{de:"der Gang","info":"çoğul: -gänge","tr":"koridor, geçit","type":"isim","art":"der","unit":8},
+{de:"der Lift","info":"çoğul: -e","tr":"asansör","type":"isim","art":"der","unit":8},
+{de:"der Briefkasten","info":"çoğul: -kästen","tr":"posta kutusu","type":"isim","art":"der","unit":8},
+{de:"das Licht","info":"çoğul: -er","tr":"ışık","type":"isim","art":"das","unit":8},
+{de:"der Herd","info":"çoğul: -e","tr":"ocak (mutfak)","type":"isim","art":"der","unit":8},
+{de:"die Ecke","info":"çoğul: -n","tr":"köşe","type":"isim","art":"die","unit":8},
+{de:"der Boden","info":"çoğul: -böden","tr":"zemin, taban","type":"isim","art":"der","unit":8},
+{de:"die Dusche","info":"çoğul: -n","tr":"duş","type":"isim","art":"die","unit":8},
+{de:"der Ofen","info":"çoğul: -öfen","tr":"fırın, soba","type":"isim","art":"der","unit":8},
+{de:"die Couch","info":"çoğul: -s","tr":"kanepe","type":"isim","art":"die","unit":8},
+{de:"die Spülmaschine","info":"çoğul: -n","tr":"bulaşık makinesi","type":"isim","art":"die","unit":8},
+{de:"der Mülleimer","info":"çoğul: -","tr":"çöp kovası","type":"isim","art":"der","unit":8},
+{de:"die Katze","info":"çoğul: -n","tr":"kedi","type":"isim","art":"die","unit":8},
+{de:"die Pflanze","info":"çoğul: -n","tr":"bitki","type":"isim","art":"die","unit":8},
+{de:"die Renovierung","info":"çoğul: -en","tr":"tadilat, yenileme","type":"isim","art":"die","unit":8},
+{de:"der Kunststoff","info":"çoğul: -e","tr":"plastik, sentetik malzeme","type":"isim","art":"der","unit":8},
+{de:"das Metall","info":"çoğul: -e","tr":"metal","type":"isim","art":"das","unit":8},
+{de:"die Badewanne","info":"çoğul: -n","tr":"küvet","type":"isim","art":"die","unit":8},
+{de:"das Loch","info":"çoğul: -löcher","tr":"delik","type":"isim","art":"das","unit":8},
+{de:"das Schreiben","info":"çoğul: -","tr":"yazı, mektup (resmi)","type":"isim","art":"das","unit":8},
+{de:"die Fremdsprache","info":"çoğul: -n","tr":"yabancı dil","type":"isim","art":"die","unit":8},
+{de:"der Schluss","info":"çoğul: -schlüsse","tr":"son, kapanış","type":"isim","art":"der","unit":8},
+{de:"der Hammer","info":"çoğul: -hämmer","tr":"çekiç","type":"isim","art":"der","unit":8},
+{de:"der Nagel","info":"çoğul: -nägel","tr":"çivi; tırnak","type":"isim","art":"der","unit":8},
+{de:"die Garantie","info":"çoğul: -n","tr":"garanti","type":"isim","art":"die","unit":8},
+{de:"die Reparatur","info":"çoğul: -en","tr":"tamirat, onarım","type":"isim","art":"die","unit":8},
+{de:"der Elektriker","info":"çoğul: -","tr":"elektrikçi (erkek)","type":"isim","art":"der","unit":8},
+{de:"die Elektrikerin","info":"çoğul: -nen","tr":"elektrikçi (kadın)","type":"isim","art":"die","unit":8},
+{de:"der Lärm","info":"tekil (Sg.)","tr":"gürültü","type":"isim","art":"der","unit":8},
+{de:"der Rahmen","info":"çoğul: -","tr":"çerçeve","type":"isim","art":"der","unit":8},
+{de:"die Verwaltung","info":"çoğul: -en","tr":"yönetim, idare","type":"isim","art":"die","unit":8},
+{de:"der Bewohner","info":"çoğul: -","tr":"sakin, ikamet eden (erkek)","type":"isim","art":"der","unit":8},
+{de:"die Bewohnerin","info":"çoğul: -nen","tr":"sakin, ikamet eden (kadın)","type":"isim","art":"die","unit":8},
+{de:"das Ehepaar","info":"çoğul: -e","tr":"evli çift","type":"isim","art":"das","unit":8},
+{de:"der/die Bekannte","info":"çoğul: -n · zayıf sıfat deklinasyonu","tr":"tanıdık","type":"isim","art":"der","unit":8},
+{de:"der Einzug","info":"çoğul: -züge","tr":"taşınma (içeri)","type":"isim","art":"der","unit":8},
+{de:"die Umgebung","info":"çoğul: -en","tr":"çevre, etraf","type":"isim","art":"die","unit":8},
+{de:"das Verkehrsmittel","info":"çoğul: -","tr":"ulaşım aracı","type":"isim","art":"das","unit":8},
+{de:"die Lage","info":"tekil (Sg.)","tr":"konum, durum","type":"isim","art":"die","unit":8},
+// FİİLLER Ü8
+{de:"mieten","info":"zayıf fiil","tr":"kiralamak (kiracı)","type":"fiil","art":"v","unit":8},
+{de:"vermieten","info":"ayrılamaz fiil","tr":"kiraya vermek (ev sahibi)","type":"fiil","art":"v","unit":8},
+{de:"reparieren","info":"ayrılamaz fiil","tr":"tamir etmek","type":"fiil","art":"v","unit":8},
+{de:"anschließen","info":"güçlü · schloss an · angeschlossen · ayrılabilir","tr":"bağlamak, takarak çalıştırmak","type":"fiil","art":"v","unit":8},
+{de:"entsorgen","info":"ayrılamaz fiil","tr":"imha etmek, atıkları bertaraf etmek","type":"fiil","art":"v","unit":8},
+{de:"isolieren","info":"ayrılamaz fiil","tr":"izole etmek, yalıtmak","type":"fiil","art":"v","unit":8},
+{de:"aufhängen","info":"ayrılabilir fiil","tr":"asmak","type":"fiil","art":"v","unit":8},
+{de:"einpacken","info":"ayrılabilir fiil","tr":"paketlemek, bavula koymak","type":"fiil","art":"v","unit":8},
+{de:"spülen","info":"zayıf fiil","tr":"durulamamak, yıkamak","type":"fiil","art":"v","unit":8},
+{de:"renovieren","info":"ayrılamaz fiil","tr":"tadilat yapmak, yenilemek","type":"fiil","art":"v","unit":8},
+{de:"kaputtgehen","info":"güçlü · ging kaputt · kaputtgegangen · ayrılabilir","tr":"bozulmak, kırılmak","type":"fiil","art":"v","unit":8},
+{de:"lassen","info":"güçlü · ließ · gelassen · yardımcı fiil olarak","tr":"bırakmak; yaptırmak (ettirgen)","type":"fiil","art":"v","unit":8},
+// SIFATLAR Ü8
+{de:"zentral","info":"sıfat","tr":"merkezi, ortada","type":"sifat","art":"adj","unit":8},
+{de:"rund","info":"sıfat","tr":"yuvarlak","type":"sifat","art":"adj","unit":8},
+{de:"riesig","info":"sıfat","tr":"devasa, çok büyük","type":"sifat","art":"adj","unit":8},
+{de:"komplett","info":"sıfat","tr":"eksiksiz, tam","type":"sifat","art":"adj","unit":8},
+{de:"günstig","info":"sıfat","tr":"uygun (fiyatlı), elverişli","type":"sifat","art":"adj","unit":8},
+];
+
+let activeType = 'all';
+let activeUnit = 0;
+
+function setType(t, btn) {
+  activeType = t;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    if(['all','isim','fiil','sifat','zarf'].includes(b.getAttribute('onclick').replace("setType('","").split("'")[0])) b.classList.remove('active');
+  });
+  btn.classList.add('active');
+  render();
+}
+
+function setUnit(u, btn) {
+  activeUnit = u;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    if(b.getAttribute('onclick') && b.getAttribute('onclick').startsWith('setUnit')) b.classList.remove('active');
+  });
+  btn.classList.add('active');
+  render();
+}
+
+function filter() { render(); }
+
+function artClass(art) {
+  if(art==='der') return 'art-der';
+  if(art==='die') return 'art-die';
+  if(art==='das') return 'art-das';
+  if(art==='v') return 'art-v';
+  if(art==='adj') return 'art-adj';
+  if(art==='adv') return 'art-adv';
+  return 'art-other';
+}
+function artLabel(art) {
+  if(art==='der') return 'DER';
+  if(art==='die') return 'DIE';
+  if(art==='das') return 'DAS';
+  if(art==='v') return 'FİİL';
+  if(art==='adj') return 'SIFAT';
+  if(art==='adv') return 'ZARF';
+  return art.toUpperCase();
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const sections = [
+    {key:'isim', label:'İsimler', badge:'badge-isim'},
+    {key:'fiil', label:'Fiiller', badge:'badge-fiil'},
+    {key:'sifat', label:'Sıfatlar', badge:'badge-sifat'},
+    {key:'zarf', label:'Zarflar & Edatlar & Bağlaçlar', badge:'badge-zarf'},
+  ];
+  let totalVisible = 0;
+  let html = '';
+  for(const sec of sections) {
+    if(activeType !== 'all' && activeType !== sec.key) continue;
+    let items = words.filter(w => {
+      if(w.type !== sec.key) return false;
+      if(activeUnit !== 0 && w.unit !== activeUnit) return false;
+      if(q && !w.de.toLowerCase().includes(q) && !w.tr.toLowerCase().includes(q)) return false;
+      return true;
+    });
+    if(!items.length) continue;
+    totalVisible += items.length;
+    html += `<div class="section">
+      <div class="section-header">
+        <h2 class="section-title">${sec.label}</h2>
+        <span class="section-badge ${sec.badge}">${items.length} kelime</span>
+      </div>
+      <div class="grid">`;
+    for(const w of items) {
+      html += `<div class="word-card">
+        <span class="article-badge ${artClass(w.art)}">${artLabel(w.art)}</span>
+        <div class="word-body">
+          <div class="word-de">${w.de}</div>
+          ${w.info ? `<div class="word-info">${w.info}</div>` : ''}
+          <div class="word-tr">${w.tr}</div>
+        </div>
+        <span class="unit-dot">Ü${w.unit}</span>
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+  document.getElementById('main').innerHTML = html;
+  document.getElementById('stats').textContent = `${totalVisible} kelime gösteriliyor`;
+}
+
+render();
+</script>
+</body>
+</html>
